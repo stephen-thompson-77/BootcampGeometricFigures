@@ -74,6 +74,32 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     )
   }
 
+  it should "have a factory method for width, height and origin" in {
+    val factoryMade = Rectangle(3.4, 5.6, (2.3, 5.6))
+    assert(factoryMade.width == 3.4)
+    assert(factoryMade.height == 5.6)
+    assert(factoryMade.origin == (2.3, 5.6))
+  }
+
+  it should "have a factory method for width, height, origin and strokeColor" in {
+    val factoryMade = Rectangle(3.4, 5.6, (2.3, 5.6), Color.CYAN)
+    assert(factoryMade.width == 3.4)
+    assert(factoryMade.height == 5.6)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(!factoryMade.filled)
+  }
+
+  it should "have a factory method for width, height, origin, strokeColor and fillColor" in {
+    val factoryMade = Rectangle(3.4, 5.6, (2.3, 5.6), Color.CYAN, Color.RED)
+    assert(factoryMade.width == 3.4)
+    assert(factoryMade.height == 5.6)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(factoryMade.fillColor == Color.RED)
+    assert(factoryMade.filled)
+  }
+
   "the square" should "have an area of 4" in {
     assertResult(4.0)(new Square(2).area)
   }
@@ -136,6 +162,29 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     assert(
       new Square(4.5, (3.4, 4.5)) == new Rectangle(4.5, 4.5, (3.4, 4.5))
     )
+  }
+
+  it should "have a factory method for length and origin" in {
+    val factoryMade = Square(3.4, (2.3, 5.6))
+    assert(factoryMade.length == 3.4)
+    assert(factoryMade.origin == (2.3, 5.6))
+  }
+
+  it should "have a factory method for length, origin and strokeColor" in {
+    val factoryMade = Square(3.4, (2.3, 5.6), Color.CYAN)
+    assert(factoryMade.length == 3.4)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(!factoryMade.filled)
+  }
+
+  it should "have a factory method for length, origin, strokeColor and fillColor" in {
+    val factoryMade = Square(3.4, (2.3, 5.6), Color.CYAN, Color.RED)
+    assert(factoryMade.length == 3.4)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(factoryMade.fillColor == Color.RED)
+    assert(factoryMade.filled)
   }
 
   "the ellipse" should "have an area of 100.53096491487338" in {
@@ -201,6 +250,32 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     )
   }
 
+  it should "have a factory method for vRadius, hRadius and origin" in {
+    val factoryMade = Ellipse(3.4, 5.6, (2.3, 5.6))
+    assert(factoryMade.hRadius == 3.4)
+    assert(factoryMade.vRadius == 5.6)
+    assert(factoryMade.origin == (2.3, 5.6))
+  }
+
+  it should "have a factory method for vRadius, hRadius, origin and strokeColor" in {
+    val factoryMade = Ellipse(3.4, 5.6, (2.3, 5.6), Color.CYAN)
+    assert(factoryMade.hRadius == 3.4)
+    assert(factoryMade.vRadius == 5.6)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(!factoryMade.filled)
+  }
+
+  it should "have a factory method for vRadius, hRadius, origin, strokeColor and fillColor" in {
+    val factoryMade = Ellipse(3.4, 5.6, (2.3, 5.6), Color.CYAN, Color.RED)
+    assert(factoryMade.hRadius == 3.4)
+    assert(factoryMade.vRadius == 5.6)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(factoryMade.fillColor == Color.RED)
+    assert(factoryMade.filled)
+  }
+
 
   "the circle" should "have an area of 78.53981633974483" in {
     assertResult(78.53981633974483)(new Circle(5).area)
@@ -264,5 +339,28 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     assert(
       new Circle(4.5, (3.4, 4.5)) == new Ellipse(4.5, 4.5, (3.4, 4.5))
     )
+  }
+
+  it should "have a factory method for radius and origin" in {
+    val factoryMade = Circle(3.4, (2.3, 5.6))
+    assert(factoryMade.radius == 3.4)
+    assert(factoryMade.origin == (2.3, 5.6))
+  }
+
+  it should "have a factory method for radius, origin and strokeColor" in {
+    val factoryMade = Circle(3.4,(2.3, 5.6), Color.CYAN)
+    assert(factoryMade.radius == 3.4)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(!factoryMade.filled)
+  }
+
+  it should "have a factory method for radius, origin, strokeColor and fillColor" in {
+    val factoryMade = Circle(3.4, (2.3, 5.6), Color.CYAN, Color.RED)
+    assert(factoryMade.radius == 3.4)
+    assert(factoryMade.origin == (2.3, 5.6))
+    assert(factoryMade.strokeColor == Color.CYAN)
+    assert(factoryMade.fillColor == Color.RED)
+    assert(factoryMade.filled)
   }
 }

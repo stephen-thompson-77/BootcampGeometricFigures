@@ -76,10 +76,37 @@ class Ellipse(val hRadius: Double, val vRadius: Double,
   }
 }
 
+object Ellipse {
+  def apply(hRadius: Double, vRadius: Double, origin: (Double, Double)): Ellipse = {
+    if (hRadius == vRadius) new Circle(hRadius, origin)
+    else new Ellipse(hRadius, vRadius, origin)
+  }
+
+  def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColour: Color): Ellipse = {
+    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColour, filled = false)
+    else new Ellipse(hRadius, vRadius, origin, strokeColour, filled = false)
+  }
+
+  def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Ellipse = {
+    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColour, fillColor, filled = true)
+    else new Ellipse(hRadius, vRadius, origin, strokeColour, fillColor, filled = true)
+  }
+}
+
 class Circle(val radius: Double,
              origin: (Double, Double) = (1.0, 1.0),
              strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
              filled: Boolean = false) extends Ellipse(radius, radius, origin, strokeColor, fillColor, filled) {
+}
+
+object Circle {
+  def apply(radius: Double, origin: (Double, Double)): Circle = new Circle(radius, origin)
+
+  def apply(radius: Double, origin: (Double, Double), strokeColour: Color): Circle =
+    new Circle(radius, origin, strokeColour, filled = false)
+
+  def apply(radius: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Circle =
+    new Circle(radius, origin, strokeColour, fillColor, filled = true)
 }
 
 class Rectangle(val width: Double, val height: Double,
@@ -118,7 +145,34 @@ class Rectangle(val width: Double, val height: Double,
   }
 }
 
+object Rectangle {
+  def apply(width: Double, height: Double, origin: (Double, Double)): Rectangle = {
+    if (width == height) new Square(width, origin)
+    else new Rectangle(width, height, origin)
+  }
+
+  def apply(width: Double, height: Double, origin: (Double, Double), strokeColour: Color): Rectangle = {
+    if (width == height) new Square(width, origin, strokeColour, filled = false)
+    else new Rectangle(width, height, origin, strokeColour, filled = false)
+  }
+
+  def apply(width: Double, height: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Rectangle = {
+    if (width == height) new Square(width, origin, strokeColour, fillColor, filled = true)
+    else new Rectangle(width, height, origin, strokeColour, fillColor, filled = true)
+  }
+}
+
 class Square(val length: Double, origin: (Double, Double) = (1.0, 1.0),
              strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
              filled: Boolean = false) extends Rectangle(length, length, origin, strokeColor, fillColor, filled) {
+}
+
+object Square {
+  def apply(length: Double, origin: (Double, Double)): Square = new Square(length, origin)
+
+  def apply(length: Double, origin: (Double, Double), strokeColour: Color): Square =
+    new Square(length, origin, strokeColour, filled = false)
+
+  def apply(length: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Square =
+    new Square(length, origin, strokeColour, fillColor, filled = true)
 }
