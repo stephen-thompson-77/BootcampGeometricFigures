@@ -11,9 +11,9 @@ abstract class GeometricFigure(val origin : (Double, Double) = (1.0, 1.0),
 }
 
 class Ellipse(val hRadius: Double, val vRadius: Double,
-              origin: (Double, Double),
-              strokeColor: Color, fillColor: Color,
-              filled: Boolean) extends GeometricFigure(origin, strokeColor, fillColor, filled) {
+              origin: (Double, Double) = (1.0, 1.0),
+              strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
+              filled: Boolean = true) extends GeometricFigure(origin, strokeColor, fillColor, filled) {
   if(hRadius < 0 || vRadius < 0){
     throw new IllegalArgumentException()
   }
@@ -23,15 +23,15 @@ class Ellipse(val hRadius: Double, val vRadius: Double,
 }
 
 class Circle(val radius: Double,
-             origin: (Double, Double),
-             strokeColor: Color, fillColor: Color,
-             filled: Boolean) extends Ellipse(radius, radius, origin, strokeColor, fillColor, filled) {
+             origin: (Double, Double) = (1.0, 1.0),
+             strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
+             filled: Boolean = true) extends Ellipse(radius, radius, origin, strokeColor, fillColor, filled) {
 }
 
 class Rectangle(val width: Double, val height: Double,
-                origin: (Double, Double),
-                strokeColor: Color, fillColor: Color,
-                filled: Boolean) extends GeometricFigure(origin, strokeColor, fillColor, filled){
+                origin: (Double, Double) = (1.0, 1.0),
+                strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
+                filled: Boolean = true) extends GeometricFigure(origin, strokeColor, fillColor, filled){
   if(width < 0 || height < 0){
     throw new IllegalArgumentException()
   }
@@ -40,7 +40,7 @@ class Rectangle(val width: Double, val height: Double,
   override val area: Double = width * height
 }
 
-class Square(val length: Double, origin: (Double, Double),
-             strokeColor: Color, fillColor: Color,
-             filled: Boolean) extends Rectangle(length, length, origin, strokeColor, fillColor, filled) {
+class Square(val length: Double, origin: (Double, Double) = (1.0, 1.0),
+             strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
+             filled: Boolean = true) extends Rectangle(length, length, origin, strokeColor, fillColor, filled) {
 }
