@@ -5,7 +5,7 @@ import java.awt.Color
 abstract class GeometricFigure(val origin : (Double, Double),
                                val strokeColor: Color,
                                val fillColor: Color,
-                               val filled: Boolean) {
+                               val filled: Boolean) extends Drawable {
   if (origin._1 < 0.0 || origin._2 < 0.0) throw new IllegalArgumentException
 
   def perimeter(): Double
