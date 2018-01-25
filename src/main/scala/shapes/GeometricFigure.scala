@@ -82,14 +82,14 @@ object Ellipse {
     else new Ellipse(hRadius, vRadius, origin)
   }
 
-  def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColour: Color): Ellipse = {
-    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColour, filled = false)
-    else new Ellipse(hRadius, vRadius, origin, strokeColour, filled = false)
+  def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColor: Color): Ellipse = {
+    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColor, filled = false)
+    else new Ellipse(hRadius, vRadius, origin, strokeColor, filled = false)
   }
 
-  def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Ellipse = {
-    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColour, fillColor, filled = true)
-    else new Ellipse(hRadius, vRadius, origin, strokeColour, fillColor, filled = true)
+  def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Ellipse = {
+    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColor, fillColor, filled = true)
+    else new Ellipse(hRadius, vRadius, origin, strokeColor, fillColor, filled = true)
   }
 }
 
@@ -102,11 +102,11 @@ class Circle(val radius: Double,
 object Circle {
   def apply(radius: Double, origin: (Double, Double)): Circle = new Circle(radius, origin)
 
-  def apply(radius: Double, origin: (Double, Double), strokeColour: Color): Circle =
-    new Circle(radius, origin, strokeColour, filled = false)
+  def apply(radius: Double, origin: (Double, Double), strokeColor: Color): Circle =
+    new Circle(radius, origin, strokeColor, filled = false)
 
-  def apply(radius: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Circle =
-    new Circle(radius, origin, strokeColour, fillColor, filled = true)
+  def apply(radius: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Circle =
+    new Circle(radius, origin, strokeColor, fillColor, filled = true)
 }
 
 class Rectangle(val width: Double, val height: Double,
@@ -151,14 +151,14 @@ object Rectangle {
     else new Rectangle(width, height, origin)
   }
 
-  def apply(width: Double, height: Double, origin: (Double, Double), strokeColour: Color): Rectangle = {
-    if (width == height) new Square(width, origin, strokeColour, filled = false)
-    else new Rectangle(width, height, origin, strokeColour, filled = false)
+  def apply(width: Double, height: Double, origin: (Double, Double), strokeColor: Color): Rectangle = {
+    if (width == height) new Square(width, origin, strokeColor, filled = false)
+    else new Rectangle(width, height, origin, strokeColor, filled = false)
   }
 
-  def apply(width: Double, height: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Rectangle = {
-    if (width == height) new Square(width, origin, strokeColour, fillColor, filled = true)
-    else new Rectangle(width, height, origin, strokeColour, fillColor, filled = true)
+  def apply(width: Double, height: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Rectangle = {
+    if (width == height) new Square(width, origin, strokeColor, fillColor, filled = true)
+    else new Rectangle(width, height, origin, strokeColor, fillColor, filled = true)
   }
 }
 
@@ -170,9 +170,9 @@ class Square(val length: Double, origin: (Double, Double) = (1.0, 1.0),
 object Square {
   def apply(length: Double, origin: (Double, Double)): Square = new Square(length, origin)
 
-  def apply(length: Double, origin: (Double, Double), strokeColour: Color): Square =
-    new Square(length, origin, strokeColour, filled = false)
+  def apply(length: Double, origin: (Double, Double), strokeColor: Color): Square =
+    new Square(length, origin, strokeColor, filled = false)
 
-  def apply(length: Double, origin: (Double, Double), strokeColour: Color, fillColor: Color): Square =
-    new Square(length, origin, strokeColour, fillColor, filled = true)
+  def apply(length: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Square =
+    new Square(length, origin, strokeColor, fillColor, filled = true)
 }
