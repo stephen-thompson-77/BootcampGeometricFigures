@@ -2,10 +2,12 @@ package shapes
 
 import java.awt.Color
 
-abstract class GeometricFigure(val origin : (Double, Double) = (1.0, 1.0),
-                               val strokeColor: Color = Color.BLACK,
-                               val fillColor: Color = Color.BLACK,
-                               val filled: Boolean = true) {
+abstract class GeometricFigure(val origin : (Double, Double),
+                               val strokeColor: Color,
+                               val fillColor: Color,
+                               val filled: Boolean) {
+  if (origin._1 < 0.0 || origin._2 < 0.0) throw new IllegalArgumentException
+
   def perimeter(): Double
   def area(): Double
 }
