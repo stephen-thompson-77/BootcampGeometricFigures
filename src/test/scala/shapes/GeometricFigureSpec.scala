@@ -207,7 +207,7 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     val canvasMock = mock[FigureCanvas]
     inSequence {
       (canvasMock.setDrawingColor _).expects(Color.CYAN)
-      (canvasMock.outlineEclipse _).expects(4.0, 2.4, 4.8, 1.3)
+      (canvasMock.outlineEllipse _).expects(4.0, 2.4, 4.8, 1.3)
     }
     new Ellipse(4.8, 1.3, origin = (4.0, 2.4), strokeColor = Color.CYAN, filled = false).draw(canvasMock)
   }
@@ -216,10 +216,10 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     val canvasMock = mock[FigureCanvas]
     inSequence {
       (canvasMock.setDrawingColor _).expects(Color.RED)
-      (canvasMock.fillEclipse _).expects(4.0, 2.4, 4.8, 1.3)
+      (canvasMock.fillEllipse _).expects(4.0, 2.4, 4.8, 1.3)
 
       (canvasMock.setDrawingColor _).expects(Color.CYAN)
-      (canvasMock.outlineEclipse _).expects(4.0, 2.4, 4.8, 1.3)
+      (canvasMock.outlineEllipse _).expects(4.0, 2.4, 4.8, 1.3)
     }
     new Ellipse(4.8, 1.3, origin = (4.0, 2.4), strokeColor = Color.CYAN, fillColor = Color.RED, filled = true)
       .draw(canvasMock)
@@ -300,7 +300,7 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     val canvasMock = mock[FigureCanvas]
     inSequence {
       (canvasMock.setDrawingColor _).expects(Color.CYAN)
-      (canvasMock.outlineEclipse _).expects(4.0, 2.4, 7.4, 7.4)
+      (canvasMock.outlineEllipse _).expects(4.0, 2.4, 7.4, 7.4)
     }
     new Circle(7.4, origin = (4.0, 2.4), strokeColor = Color.CYAN, filled = false).draw(canvasMock)
 
@@ -310,10 +310,10 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
     val canvasMock = mock[FigureCanvas]
     inSequence {
       (canvasMock.setDrawingColor _).expects(Color.RED)
-      (canvasMock.fillEclipse _).expects(4.0, 2.4, 7.4, 7.4)
+      (canvasMock.fillEllipse _).expects(4.0, 2.4, 7.4, 7.4)
 
       (canvasMock.setDrawingColor _).expects(Color.CYAN)
-      (canvasMock.outlineEclipse _).expects(4.0, 2.4, 7.4, 7.4)
+      (canvasMock.outlineEllipse _).expects(4.0, 2.4, 7.4, 7.4)
     }
     new Circle(7.4, origin = (4.0, 2.4), strokeColor = Color.CYAN, fillColor = Color.RED, filled = true)
       .draw(canvasMock)

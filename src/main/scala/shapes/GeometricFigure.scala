@@ -51,11 +51,11 @@ class Ellipse(val hRadius: Double, val vRadius: Double,
   override val area: Double = Math.PI * (hRadius * vRadius)
 
   override protected def drawOutline(canvas: FigureCanvas): Unit = {
-    canvas.outlineEclipse(origin._1, origin._2, hRadius, vRadius)
+    canvas.outlineEllipse(origin._1, origin._2, hRadius, vRadius)
   }
 
   override protected def drawFill(canvas: FigureCanvas): Unit = {
-    canvas.fillEclipse(origin._1, origin._2, hRadius, vRadius)
+    canvas.fillEllipse(origin._1, origin._2, hRadius, vRadius)
   }
 
 
