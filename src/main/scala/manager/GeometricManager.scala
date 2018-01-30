@@ -32,9 +32,22 @@ class GeometricManager(canvas: FigureCanvas) {
     list = Nil
   }
 
-  def scaleAll(myFraction: MyFraction, maxArea: Option[Double]) = ???
+  def scaleAll(myFraction: MyFraction, minArea: Option[Double]) = {
+    list = list map { gf: GeometricFigure => minArea match {
+      case None => gf.resize(myFraction)
+      case Some(min) if gf.area() > min => gf.resize(myFraction)
+      case _ => gf
+    }}
+  }
 
-  def drawAll(maxArea: Option[Double]) = ???
+  def drawAll(minArea: Option[Double]): Unit = {
+    list withFilter { gf => minArea match {
+      case None => true
+      case Some(area) => gf.area() > area
+    }} foreach { gf =>
+      gf.draw(canvas)
+    }
+  }
 
   def totalArea(): Double = {
     list.foldLeft(0d)((acc, shape) => acc + shape.area())

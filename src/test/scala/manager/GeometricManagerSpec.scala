@@ -74,7 +74,7 @@ class GeometricManagerSpec extends FlatSpec with MockFactory {
     assertResult(Nil)(gm.list)
   }
 
-  "resizeAll" should "(without optional area) resize all managed shapes" in {
+  "scaleAll" should "(without optional area) resize all managed shapes" in {
     val gm = new GeometricManager(baseCanvasMock)
     gm.add(Rectangle(60, 52, (34.5, 12.4)))
     gm.add(Ellipse(60, 52, (34.5, 12.4)))
@@ -88,7 +88,7 @@ class GeometricManagerSpec extends FlatSpec with MockFactory {
     )(gm.list)
   }
 
-  it should "only resize those larger than area if present" in {
+  it should "only resize those larger than minArea if present" in {
     val gm = new GeometricManager(baseCanvasMock)
     gm.add(Rectangle(60, 52, (34.5, 12.4)))
     gm.add(Ellipse(30, 26, (34.5, 12.4)))
@@ -100,6 +100,50 @@ class GeometricManagerSpec extends FlatSpec with MockFactory {
     assertResult(
       List(Circle(30, (34.5, 12.4)), Ellipse(30, 26, (34.5, 12.4)), Rectangle(30, 26, (34.5, 12.4)))
     )(gm.list)
+  }
+
+  "drawAll" should "(without optional area) draw all managed shapes" in {
+    val canvasMock = mock[FigureCanvas]
+    val gm = new GeometricManager(canvasMock)
+    gm.add(Rectangle(60, 52, (34.5, 12.4), Color.BLUE))
+    gm.add(Ellipse(30, 26, (34.5, 12.4), Color.RED, Color.CYAN))
+    gm.add(Circle(60, (34.5, 12.4), Color.GRAY))
+
+    inSequence {
+      //Circle
+      (canvasMock.setDrawingColor _).expects(Color.GRAY)
+      (canvasMock.outlineEllipse _).expects(34.5, 12.4, 60, 60)
+
+      //Ellipse
+      (canvasMock.setDrawingColor _).expects(Color.CYAN)
+      (canvasMock.fillEllipse _).expects(34.5, 12.4, 30, 26)
+      (canvasMock.setDrawingColor _).expects(Color.RED)
+      (canvasMock.outlineEllipse _).expects(34.5, 12.4, 30, 26)
+
+      //Rectangle
+      (canvasMock.setDrawingColor _).expects(Color.BLUE)
+      (canvasMock.outlineRectangle _).expects(34.5, 12.4, 60, 52)
+    }
+    gm.drawAll(None)
+  }
+
+  it should "only draw those larger than minArea if present" in {
+    val canvasMock = mock[FigureCanvas]
+    val gm = new GeometricManager(canvasMock)
+    gm.add(Rectangle(60, 52, (34.5, 12.4), Color.BLUE))
+    gm.add(Ellipse(30, 26, (34.5, 12.4), Color.RED, Color.CYAN))
+    gm.add(Circle(60, (34.5, 12.4), Color.GRAY))
+
+    inSequence {
+      //Circle
+      (canvasMock.setDrawingColor _).expects(Color.GRAY)
+      (canvasMock.outlineEllipse _).expects(34.5, 12.4, 60, 60)
+
+      //Rectangle
+      (canvasMock.setDrawingColor _).expects(Color.BLUE)
+      (canvasMock.outlineRectangle _).expects(34.5, 12.4, 60, 52)
+    }
+    gm.drawAll(Some(3000))
   }
 
   "totalArea" should "sum all areas of shapes managed" in {
