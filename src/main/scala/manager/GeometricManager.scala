@@ -1,11 +1,11 @@
 package manager
 
 import bootcamp_fraction.MyFraction
-import shapes.GeometricFigure
+import shapes.{FigureCanvas, GeometricFigure}
 
-class GeometricManager {
+class GeometricManager(canvas: FigureCanvas) {
 
-  private var list: List[GeometricFigure]= Nil
+  private[GeometricManagerSpec] var list: List[GeometricFigure]= Nil
 
   def add(geometricFigure: GeometricFigure) = ???
 
