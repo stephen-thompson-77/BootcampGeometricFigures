@@ -1,24 +1,34 @@
 package manager
 
 import bootcamp_fraction.MyFraction
-import shapes.GeometricFigure
+import shapes.{FigureCanvas, GeometricFigure}
 
-class GeometricManager {
+class GeometricManager(canvas: FigureCanvas) {
 
   private var list: List[GeometricFigure]= Nil
 
-  def add(geometricFigure: GeometricFigure) = ???
+  def add(geometricFigure: GeometricFigure) = {
+    list =  geometricFigure :: list
+  }
 
-  def remove(geometricFigure: GeometricFigure) = ???
+  def remove(geometricFigure: GeometricFigure) = {
+    list = list.filter(_.equals(geometricFigure))
+  }
 
-  def clear() = ???
+  def clear() = {
+    list = Nil
+  }
 
   def scaleAll(myFraction: MyFraction, maxArea: Option[Double]) = ???
 
   def drawAll(maxArea: Option[Double]) = ???
 
-  def totalArea(): Double = ???
+  def totalArea(): Double = {
+    list.foldLeft(0d)((acc, shape) => acc + shape.area())
+  }
 
-  def totalPerimeter(): Double = ???
+  def totalPerimeter(): Double = {
+    list.foldLeft(0d)((acc, shape) => acc + shape.perimeter())
+  }
 
 }
