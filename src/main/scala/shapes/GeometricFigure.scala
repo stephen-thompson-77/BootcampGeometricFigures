@@ -4,17 +4,19 @@ import java.awt.Color
 
 abstract class GeometricFigure(val origin : (Double, Double),
                                val strokeColor: Color,
-                               val fillColor: Color,
-                               val filled: Boolean) extends Drawable {
+                               val fillColor: Option[Color]) extends Drawable {
   if (origin._1 < 0.0 || origin._2 < 0.0) throw new IllegalArgumentException
 
   def perimeter(): Double
   def area(): Double
 
   def draw(canvas: FigureCanvas): Unit = {
-    if (filled) {
-      canvas.setDrawingColor(fillColor)
-      drawFill(canvas)
+    fillColor match {
+      case Some(fill) => {
+        canvas.setDrawingColor(fill)
+        drawFill(canvas)
+      }
+      case None =>
     }
     canvas.setDrawingColor(strokeColor)
     drawOutline(canvas)
@@ -41,8 +43,7 @@ abstract class GeometricFigure(val origin : (Double, Double),
 
 class Ellipse(val hRadius: Double, val vRadius: Double,
               origin: (Double, Double) = (1.0, 1.0),
-              strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
-              filled: Boolean = false) extends GeometricFigure(origin, strokeColor, fillColor, filled) {
+              strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends GeometricFigure(origin, strokeColor, fillColor) {
   if(hRadius < 0 || vRadius < 0){
     throw new IllegalArgumentException()
   }
@@ -83,36 +84,34 @@ object Ellipse {
   }
 
   def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColor: Color): Ellipse = {
-    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColor, filled = false)
-    else new Ellipse(hRadius, vRadius, origin, strokeColor, filled = false)
+    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColor, None)
+    else new Ellipse(hRadius, vRadius, origin, strokeColor, None)
   }
 
   def apply(hRadius: Double, vRadius: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Ellipse = {
-    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColor, fillColor, filled = true)
-    else new Ellipse(hRadius, vRadius, origin, strokeColor, fillColor, filled = true)
+    if (hRadius == vRadius) new Circle(hRadius, origin, strokeColor, Some(fillColor))
+    else new Ellipse(hRadius, vRadius, origin, strokeColor, Some(fillColor))
   }
 }
 
 class Circle(val radius: Double,
              origin: (Double, Double) = (1.0, 1.0),
-             strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
-             filled: Boolean = false) extends Ellipse(radius, radius, origin, strokeColor, fillColor, filled) {
+             strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends Ellipse(radius, radius, origin, strokeColor, fillColor) {
 }
 
 object Circle {
   def apply(radius: Double, origin: (Double, Double)): Circle = new Circle(radius, origin)
 
   def apply(radius: Double, origin: (Double, Double), strokeColor: Color): Circle =
-    new Circle(radius, origin, strokeColor, filled = false)
+    new Circle(radius, origin, strokeColor, None)
 
   def apply(radius: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Circle =
-    new Circle(radius, origin, strokeColor, fillColor, filled = true)
+    new Circle(radius, origin, strokeColor, Some(fillColor))
 }
 
 class Rectangle(val width: Double, val height: Double,
                 origin: (Double, Double) = (1.0, 1.0),
-                strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
-                filled: Boolean = false) extends GeometricFigure(origin, strokeColor, fillColor, filled){
+                strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends GeometricFigure(origin, strokeColor, fillColor){
   if(width < 0 || height < 0){
     throw new IllegalArgumentException()
   }
@@ -152,27 +151,26 @@ object Rectangle {
   }
 
   def apply(width: Double, height: Double, origin: (Double, Double), strokeColor: Color): Rectangle = {
-    if (width == height) new Square(width, origin, strokeColor, filled = false)
-    else new Rectangle(width, height, origin, strokeColor, filled = false)
+    if (width == height) new Square(width, origin, strokeColor)
+    else new Rectangle(width, height, origin, strokeColor)
   }
 
   def apply(width: Double, height: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Rectangle = {
-    if (width == height) new Square(width, origin, strokeColor, fillColor, filled = true)
-    else new Rectangle(width, height, origin, strokeColor, fillColor, filled = true)
+    if (width == height) new Square(width, origin, strokeColor, Some(fillColor))
+    else new Rectangle(width, height, origin, strokeColor, Some(fillColor))
   }
 }
 
 class Square(val length: Double, origin: (Double, Double) = (1.0, 1.0),
-             strokeColor: Color = Color.BLACK, fillColor: Color = Color.BLUE,
-             filled: Boolean = false) extends Rectangle(length, length, origin, strokeColor, fillColor, filled) {
+             strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends Rectangle(length, length, origin, strokeColor, fillColor) {
 }
 
 object Square {
   def apply(length: Double, origin: (Double, Double)): Square = new Square(length, origin)
 
   def apply(length: Double, origin: (Double, Double), strokeColor: Color): Square =
-    new Square(length, origin, strokeColor, filled = false)
+    new Square(length, origin, strokeColor, None)
 
   def apply(length: Double, origin: (Double, Double), strokeColor: Color, fillColor: Color): Square =
-    new Square(length, origin, strokeColor, fillColor, filled = true)
+    new Square(length, origin, strokeColor, Some(fillColor))
 }
