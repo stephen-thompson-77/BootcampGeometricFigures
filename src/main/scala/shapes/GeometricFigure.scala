@@ -2,6 +2,8 @@ package shapes
 
 import java.awt.Color
 
+import bootcamp_fraction.MyFraction
+
 abstract class GeometricFigure(val origin : (Double, Double),
                                val strokeColor: Color,
                                val fillColor: Option[Color]) extends Drawable {
@@ -21,6 +23,8 @@ abstract class GeometricFigure(val origin : (Double, Double),
     canvas.setDrawingColor(strokeColor)
     drawOutline(canvas)
   }
+
+  def resize(fraction: MyFraction): GeometricFigure
 
   protected def drawOutline(canvas: FigureCanvas): Unit
   protected def drawFill(canvas: FigureCanvas): Unit
@@ -59,6 +63,7 @@ class Ellipse(val hRadius: Double, val vRadius: Double,
     canvas.fillEllipse(origin._1, origin._2, hRadius, vRadius)
   }
 
+  override def resize(fraction: MyFraction): Ellipse = ???
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Ellipse]
 
@@ -97,6 +102,9 @@ object Ellipse {
 class Circle(val radius: Double,
              origin: (Double, Double) = (1.0, 1.0),
              strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends Ellipse(radius, radius, origin, strokeColor, fillColor) {
+
+  override def resize(fraction: MyFraction): Circle = ???
+
 }
 
 object Circle {
@@ -126,6 +134,8 @@ class Rectangle(val width: Double, val height: Double,
   override protected def drawFill(canvas: FigureCanvas): Unit = {
     canvas.fillRectangle(origin._1, origin._2, width, height)
   }
+
+  override def resize(fraction: MyFraction): Rectangle = ???
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Rectangle]
 
@@ -163,6 +173,9 @@ object Rectangle {
 
 class Square(val length: Double, origin: (Double, Double) = (1.0, 1.0),
              strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends Rectangle(length, length, origin, strokeColor, fillColor) {
+
+  override def resize(fraction: MyFraction): Square = ???
+
 }
 
 object Square {
