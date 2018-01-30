@@ -19,7 +19,7 @@ class GeometricManagerSpec extends FlatSpec with MockFactory {
     }
   }
 
-  it should "add a shape to an existing geometry manager, at the end of the list" in {
+  it should "add a shape to an existing geometry manager, at the beginning of the list" in {
     val ell = Ellipse(45.7, 34.9, (25,25))
     val gm = new GeometricManager(baseCanvasMock)
     gm.add(Circle(4.5, (32,32)))
@@ -29,11 +29,11 @@ class GeometricManagerSpec extends FlatSpec with MockFactory {
     gm.add(ell)
     assert(gm.list.size == 3)
     assertResult(ell) {
-      gm.list.last
+      gm.list.head
     }
   }
 
-  "remove" should "remove a shape (based on size anf position only)" in {
+  "remove" should "remove a shape (based on size and position only)" in {
     val gm = new GeometricManager(baseCanvasMock)
 
     val toRemove = Square(4.5, (32,32), Color.CYAN)
@@ -55,7 +55,7 @@ class GeometricManagerSpec extends FlatSpec with MockFactory {
 
     gm.remove(Square(4.5, (32,32), Color.BLACK))
     assert(gm.list.size == 2)
-    assertResult(Color.RED){
+    assertResult(Color.CYAN){
       gm.list.find(_.equals(toRemove)) match {
         case None => fail("remove removed all matches")
         case Some(sq: Square) => sq.strokeColor
