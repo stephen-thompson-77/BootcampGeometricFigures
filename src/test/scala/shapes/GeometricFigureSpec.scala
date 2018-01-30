@@ -3,6 +3,7 @@ package shapes
 import java.awt.Color
 
 import bootcamp_fraction.MyFraction
+import moodsdesign.cw.provd.FxFigureCanvasApp.canvas
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FlatSpec
 
@@ -424,5 +425,34 @@ class GeometricFigureSpec extends FlatSpec with MockFactory {
 
     val resized = circ.resize(frac)
     assertResult((34.5, 12.4))(resized.origin)
+  }
+
+  "Linearisation of Traits" should "add border and background in expected order" in {
+
+    val canvasMock = mock[FigureCanvas]
+    inSequence {
+
+      (canvasMock.setDrawingColor _).expects(Color.BLACK)
+      (canvasMock.outlineRectangle _).expects(-124.4, -168.0, 256.8, 340.8)
+
+      (canvasMock.setDrawingColor _).expects(Color.LIGHT_GRAY)
+      (canvasMock.fillRectangle _).expects(-124.4, -168.0, 256.8, 340.8)
+
+      (canvasMock.setDrawingColor _).expects(Color.RED)
+      (canvasMock.fillRectangle _).expects(-124.4, -168.0, 256.8, 340.8)
+
+      (canvasMock.setDrawingColor _).expects(Color.CYAN)
+      (canvasMock.fillEllipse _).expects(4.0, 2.4, 103.4, 145.4)
+
+      (canvasMock.setDrawingColor _).expects(Color.BLUE)
+      (canvasMock.outlineEllipse _).expects(4.0, 2.4, 103.4, 145.4)
+    }
+
+    val ell: Ellipse = new Ellipse(103.4, 145.4, (4.0, 2.4), Color.BLUE, Some(Color.CYAN))
+      with RedBackgroundedDrawable
+      with LightGrayBackgroundedDrawable
+      with BorderedDrawable
+
+    ell.draw(canvasMock)
   }
 }

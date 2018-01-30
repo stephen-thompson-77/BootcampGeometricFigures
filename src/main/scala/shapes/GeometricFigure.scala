@@ -12,7 +12,9 @@ abstract class GeometricFigure(val origin : (Double, Double),
   def perimeter(): Double
   def area(): Double
 
-  def draw(canvas: FigureCanvas): Unit = {
+  def bounds(): ((Double, Double), Double, Double)
+
+  override def draw(canvas: FigureCanvas): Unit = {
     fillColor match {
       case Some(fill) => {
         canvas.setDrawingColor(fill)
@@ -45,6 +47,10 @@ abstract class GeometricFigure(val origin : (Double, Double),
   }
 }
 
+object GeometricFigure {
+  val boundBuffer = 25
+}
+
 class Ellipse(val hRadius: Double, val vRadius: Double,
               origin: (Double, Double) = (1.0, 1.0),
               strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends GeometricFigure(origin, strokeColor, fillColor) {
@@ -54,6 +60,15 @@ class Ellipse(val hRadius: Double, val vRadius: Double,
 
   override val perimeter: Double = (2 * Math.PI) * Math.sqrt((hRadius * hRadius + vRadius * vRadius) / 2)
   override val area: Double = Math.PI * (hRadius * vRadius)
+
+  override val bounds: ((Double, Double), Double, Double) = {
+    import GeometricFigure.boundBuffer
+    (
+      (origin._1-(hRadius+boundBuffer),origin._2-(vRadius+boundBuffer)),
+      (hRadius + boundBuffer)*2,
+      (vRadius + boundBuffer)*2
+    )
+  }
 
   override protected def drawOutline(canvas: FigureCanvas): Unit = {
     canvas.outlineEllipse(origin._1, origin._2, hRadius, vRadius)
@@ -141,6 +156,15 @@ class Rectangle(val width: Double, val height: Double,
 
   override val perimeter: Double = (width + height) * 2
   override val area: Double = width * height
+
+  override val bounds: ((Double, Double), Double, Double) = {
+    import GeometricFigure.boundBuffer
+    (
+      (origin._1-boundBuffer,origin._2-boundBuffer),
+      width + boundBuffer*2,
+      height + boundBuffer*2
+    )
+  }
 
   override protected def drawOutline(canvas: FigureCanvas): Unit = {
     canvas.outlineRectangle(origin._1, origin._2, width, height)
