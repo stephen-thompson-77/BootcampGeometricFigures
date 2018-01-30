@@ -63,7 +63,15 @@ class Ellipse(val hRadius: Double, val vRadius: Double,
     canvas.fillEllipse(origin._1, origin._2, hRadius, vRadius)
   }
 
-  override def resize(fraction: MyFraction): Ellipse = ???
+  override def resize(fraction: MyFraction): Ellipse = {
+    new Ellipse(
+      hRadius = (fraction * MyFraction(hRadius)).toDouble,
+      vRadius = (fraction * MyFraction(vRadius)).toDouble,
+      origin = origin,
+      strokeColor = strokeColor,
+      fillColor = fillColor
+    )
+  }
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Ellipse]
 
@@ -103,7 +111,14 @@ class Circle(val radius: Double,
              origin: (Double, Double) = (1.0, 1.0),
              strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends Ellipse(radius, radius, origin, strokeColor, fillColor) {
 
-  override def resize(fraction: MyFraction): Circle = ???
+  override def resize(fraction: MyFraction): Circle = {
+    new Circle(
+      radius = (fraction * MyFraction(radius)).toDouble,
+      origin = origin,
+      strokeColor = strokeColor,
+      fillColor = fillColor
+    )
+  }
 
 }
 
@@ -135,7 +150,15 @@ class Rectangle(val width: Double, val height: Double,
     canvas.fillRectangle(origin._1, origin._2, width, height)
   }
 
-  override def resize(fraction: MyFraction): Rectangle = ???
+  override def resize(fraction: MyFraction): Rectangle = {
+    new Rectangle(
+      width = (fraction * MyFraction(width)).toDouble,
+      height = (fraction * MyFraction(height)).toDouble,
+      origin = origin,
+      strokeColor = strokeColor,
+      fillColor = fillColor
+    )
+  }
 
   override def canEqual(other: Any): Boolean = other.isInstanceOf[Rectangle]
 
@@ -174,7 +197,14 @@ object Rectangle {
 class Square(val length: Double, origin: (Double, Double) = (1.0, 1.0),
              strokeColor: Color = Color.BLACK, fillColor: Option[Color] = None) extends Rectangle(length, length, origin, strokeColor, fillColor) {
 
-  override def resize(fraction: MyFraction): Square = ???
+  override def resize(fraction: MyFraction): Square = {
+    new Square(
+      length = (fraction * MyFraction(length)).toDouble,
+      origin = origin,
+      strokeColor = strokeColor,
+      fillColor = fillColor
+    )
+  }
 
 }
 
