@@ -2,6 +2,7 @@ package manager
 
 import java.awt.Color
 
+import bootcamp_fraction.MyFraction
 import org.scalamock.scalatest.MockFactory
 import org.scalatest.FlatSpec
 import shapes._
@@ -71,6 +72,34 @@ class GeometricManagerSpec extends FlatSpec with MockFactory {
 
     gm.clear()
     assertResult(Nil)(gm.list)
+  }
+
+  "resizeAll" should "(without optional area) resize all managed shapes" in {
+    val gm = new GeometricManager(baseCanvasMock)
+    gm.add(Rectangle(60, 52, (34.5, 12.4)))
+    gm.add(Ellipse(60, 52, (34.5, 12.4)))
+    gm.add(Circle(60, (34.5, 12.4)))
+
+    val frac = MyFraction(2, 8)
+
+    gm.scaleAll(frac, None)
+    assertResult(
+      List(Circle(15, (34.5, 12.4)), Ellipse(15, 13, (34.5, 12.4)), Rectangle(15, 13, (34.5, 12.4)))
+    )(gm.list)
+  }
+
+  it should "only resize those larger than area if present" in {
+    val gm = new GeometricManager(baseCanvasMock)
+    gm.add(Rectangle(60, 52, (34.5, 12.4)))
+    gm.add(Ellipse(30, 26, (34.5, 12.4)))
+    gm.add(Circle(60, (34.5, 12.4)))
+
+    val frac = MyFraction(3, 6)
+
+    gm.scaleAll(frac, Some(3000))
+    assertResult(
+      List(Circle(30, (34.5, 12.4)), Ellipse(30, 26, (34.5, 12.4)), Rectangle(30, 26, (34.5, 12.4)))
+    )(gm.list)
   }
 
   "totalArea" should "sum all areas of shapes managed" in {
